@@ -63,15 +63,6 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
         self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
         
-        # Edith wonders whether the site will remember her list. Then she sees
-        # that the site has generated a unique URL for her -- there is some
-        # explanatory text to that effect.
-        self.fail('Finish the test!')
-        
-        # She visits the URL - her to-do list is still there.
-
-        # Satisfied, she goes back to sleep
-        
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
         # Edit starts a new to-do list
@@ -109,7 +100,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Francis gets his own unique URL
         francis_list_url = self.browser.current_url
         self.assertRegex(francis_list_url, '/lists/.+')
-        self.assertNoyEqual(francis_list_url, edit_list_url)
+        self.assertNotEqual(francis_list_url, edith_list_url)
 
         # Again, there is no trace of Edith's list
         page_text = self.browser.find_element('tag name', 'body').text
