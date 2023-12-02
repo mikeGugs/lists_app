@@ -10,7 +10,13 @@ MAX_WAIT = 10
 class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        options = webdriver.FirefoxOptions()
+        options.add_argument("--headless")
+
+        geckodriver_path = "/snap/bin/geckodriver"  # specify the path to your geckodriver                                                              
+        driver_service = webdriver.FirefoxService(executable_path=geckodriver_path)
+
+        self.browser = webdriver.Firefox(options=options, service=driver_service)
         staging_server = os.environ.get('STAGING_SERVER')
         if staging_server:
             self.live_server_url = "http://" + staging_server
