@@ -10,7 +10,12 @@ MAX_WAIT = 10
 class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        options = webdriver.FirefoxOptions()
+        options.add_argument('--headless')
+        geckodriver_path = ('/snap/bin/geckodriver') # specify geckodriver path
+        driver_service = webdriver.FirefoxService(executable_path=geckodriver_path)
+        self.browser = webdriver.Firefox(options=options, service=driver_service)
+
         staging_server = os.environ.get('STAGING_SERVER')
         if staging_server:
             self.live_server_url = "http://" + staging_server
@@ -85,7 +90,11 @@ class NewVisitorTest(StaticLiveServerTestCase):
         ## We use a new browser session to make sure that no information
         ## of Edith's is coming through from cookies etc
         self.browser.quit()
-        self.browser = webdriver.Firefox()
+        options = webdriver.FirefoxOptions()
+        options.add_argument('--headless')
+        geckodriver_path = ('/snap/bin/geckodriver') # specify geckodriver path
+        driver_service = webdriver.FirefoxService(executable_path=geckodriver_path)
+        self.browser = webdriver.Firefox(options=options, service=driver_service)
 
         # Francis visits the home page. There is no sign of Edith's
         # list
