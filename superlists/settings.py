@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+CSRF_TRUSTED_ORIGINS = ['http://superlists-staging.mguglielmo.xyz']
 # Application definition
 
 INSTALLED_APPS = [
