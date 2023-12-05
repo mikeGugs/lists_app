@@ -24,9 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-xfrf0-_g1t1#57etrr6tqz-cp@r!ig^4bembe2#*-)539jq0ou'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if 'DJANGO_DEBUG_FALSE' in os.environ:
+    DEBUG = False
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+    ALLOWED_HOSTS = [os.environ['SITENAME']]
+else:
+    DEBUG = True
+    SECRET_KEY = 'insecure-key-for-dev'
+    ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = ['http://superlists-staging.mguglielmo.xyz']
 # Application definition
