@@ -142,3 +142,5 @@ EMAIL_HOST_USER = 'webguglielmo@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+LOGOUT_REDIRECT_URL = '/'
