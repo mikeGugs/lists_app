@@ -3,12 +3,14 @@ from selenium import webdriver
 import time
 from selenium.common.exceptions import WebDriverException
 import os
+from .server_tools import reset_database
 
 MAX_WAIT = 10
 
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
+
         options = webdriver.FirefoxOptions()
         options.add_argument('--headless')
         geckodriver_path = ('/snap/bin/geckodriver') # specify geckodriver path
@@ -18,6 +20,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         staging_server = os.environ.get('STAGING_SERVER')
         if staging_server:
             self.live_server_url = "http://" + staging_server
+            reset_database(self.staging_server)
 
     def tearDown(self):
         self.browser.quit()
